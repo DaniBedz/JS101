@@ -1,0 +1,22 @@
+{
+  "en": {
+    "header": "\n----- Calculator -----",
+    "first": "First number:",
+    "second": "Second number:",
+    "invalid": "Number not valid - please try again.",
+    "operation": "Operation:\n  1). Add\n  2). Subtract\n  3). Multiply\n  4). Divide",
+    "opInvalid": "Operation not valid - Enter 1, 2, 3 or 4:",
+    "again": "Would you like to perform another operation? (y/n)",
+    "answer": "The output is:"
+  },
+  "fr": {
+    "header": "\n----- Calculateur -----",
+    "first": "Premier numéro:",
+    "second": "Deuxième numéro:",
+    "invalid": "Numéro non valide - veuillez réessayer.",
+    "operation": "Opération:\n  1). Ajouter\n  2). Soustraire\n  3). Multiplier\n  4). Diviser",
+    "opInvalid": "Opération non valable - Entrez 1, 2, 3 ou 4",
+    "again": "Vous souhaitez effectuer une autre opération? (y/n)",
+    "answer": "Le résultat est:"
+  }
+}
