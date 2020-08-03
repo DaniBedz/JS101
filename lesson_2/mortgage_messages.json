@@ -1,0 +1,10 @@
+{
+  "title": "Mortgage Calculator",
+  "loanAmountMsg": "How much would you like to borrow?:",
+  "notValidMsg": "Not a valid number - please try again:",
+  "aprMsg": "What is annual interest rate %? (APR):",
+  "loanDurationMsg": "What is loan duration? (in years)",
+  "outputMsg": "The monthly payment is: $",
+  "anotherMsg": "Another calculation?:",
+  "yesOrNo": "Please enter 'y' or 'n':"
+}

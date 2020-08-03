@@ -1,23 +1,16 @@
 const readline = require('readline-sync');
+const MESSAGES = require('./mortgage_messages.json');
 
 // Creates custom prompt with formatting
 function prompt(message) {
-  console.log("\n=> " + message + "\n----------------------------------------");
+  console.log("\n=> " + message + "\n------------------------------------------");
 }
 
 // Checks if a number is empty, negative or not a number
-function invalidNumber(number) {
+function isInvalidNumber(number) {
   return number.trim() === '' ||
-  Number(number) < 0 ||
+  Number(number) <= 0 ||
   Number.isNaN(Number(number));
-}
-
-// Displays message and prompts for input again if invalid number is entered
-function validator(input) {
-  while (invalidNumber(input)) {
-    prompt('Not a valid number - please try again:');
-    input = readline.question();
-  }
 }
 
 // Main program loop
@@ -26,27 +19,30 @@ while (true) {
 
   console.clear();
 
-  prompt('Mortgage Calculator');
+  prompt(MESSAGES['title']);
 
-  prompt('How much would you like to borrow?:');
+  prompt(MESSAGES['loanAmountMsg']);
   let loanAmount = readline.question();
-  validator(loanAmount);
+  while (isInvalidNumber(loanAmount)) {
+    prompt(MESSAGES['notValidMsg']);
+    loanAmount = readline.question();
+  }
 
-  prompt('What is annual interest rate %? (APR):');
+  prompt(MESSAGES['aprMsg']);
   let annualInterestRate = readline.question();
-  validator(annualInterestRate);
+  while (isInvalidNumber(annualInterestRate)) {
+    prompt(MESSAGES['notValidMsg']);
+    annualInterestRate = readline.question();
+  }
 
   let monthlyInterestRate = (Number(annualInterestRate) / 100) / 12;
 
-  prompt('What is loan duration? (in years):');
-  let loanDurationYears = (Number(readline.question()));
-
-  // Checks if number is a decimal and prompts for input again if so
-  while (Number.isInteger(loanDurationYears) === false) {
-    prompt('Enter a whole number:');
-    loanDurationYears = Number(readline.question());
+  prompt(MESSAGES['loanDurationMsg']);
+  let loanDurationYears = readline.question();
+  while (isInvalidNumber(loanDurationYears)) {
+    prompt(MESSAGES['notValidMsg']);
+    loanDurationYears = readline.question();
   }
-  validator(loanDurationYears.toString());
 
   let loanDurationMonths = loanDurationYears * 12;
 
@@ -58,13 +54,13 @@ while (true) {
     monthlyPayment = loanAmount / loanDurationMonths;
   }
 
-  prompt(`The monthly payment is: $${monthlyPayment.toFixed(2)}`);
+  prompt(MESSAGES['outputMsg'] + `${monthlyPayment.toFixed(2)}`);
 
-  prompt("Another calculation?:");
+  prompt(MESSAGES['anotherMsg']);
   let anotherCalc = readline.question().toLowerCase();
 
   while (anotherCalc[0] !== 'n' && anotherCalc[0] !== 'y') {
-    prompt('Please enter "y" or "n":');
+    prompt(MESSAGES['yesOrNo']);
     anotherCalc = readline.question().toLowerCase();
   }
 
