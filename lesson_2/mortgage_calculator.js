@@ -2,8 +2,14 @@ const readline = require('readline-sync');
 const MESSAGES = require('./mortgage_messages.json');
 
 // Creates custom prompt with formatting
-function prompt(message) {
-  console.log("\n=> " + message + "\n------------------------------------------");
+function prompt(key, extra) {
+  let message = messages(key, extra = '');
+  console.log(`\n=> ${message}\n------------------------------------------` + extra.toString());
+}
+
+// Shortens prompt by returning external messages syntax
+function messages(message) {
+  return MESSAGES[message];
 }
 
 // Checks if a number is empty, negative or not a number
@@ -19,28 +25,29 @@ while (true) {
 
   console.clear();
 
-  prompt(MESSAGES['title']);
+  prompt('title');
 
-  prompt(MESSAGES['loanAmountMsg']);
+  prompt('loanAmountMsg');
   let loanAmount = readline.question();
   while (isInvalidNumber(loanAmount)) {
-    prompt(MESSAGES['notValidMsg']);
+    prompt('notValidMsg');
     loanAmount = readline.question();
   }
 
-  prompt(MESSAGES['aprMsg']);
+  prompt('aprMsg');
   let annualInterestRate = readline.question();
   while (isInvalidNumber(annualInterestRate)) {
-    prompt(MESSAGES['notValidMsg']);
+    prompt('notValidMsg');
     annualInterestRate = readline.question();
   }
 
   let monthlyInterestRate = (Number(annualInterestRate) / 100) / 12;
 
-  prompt(MESSAGES['loanDurationMsg']);
+  prompt('loanDurationMsg');
   let loanDurationYears = readline.question();
-  while (isInvalidNumber(loanDurationYears)) {
-    prompt(MESSAGES['notValidMsg']);
+
+  while (isInvalidNumber(loanDurationYears) || loanDurationYears.includes('.')) {
+    prompt('durationDecimal');
     loanDurationYears = readline.question();
   }
 
@@ -54,13 +61,14 @@ while (true) {
     monthlyPayment = loanAmount / loanDurationMonths;
   }
 
-  prompt(MESSAGES['outputMsg'] + `${monthlyPayment.toFixed(2)}`);
+  prompt('outputMsg');
+  console.log(`$${monthlyPayment.toFixed(2)}`);
 
-  prompt(MESSAGES['anotherMsg']);
+  prompt('anotherMsg');
   let anotherCalc = readline.question().toLowerCase();
 
   while (anotherCalc[0] !== 'n' && anotherCalc[0] !== 'y') {
-    prompt(MESSAGES['yesOrNo']);
+    prompt('yesOrNo');
     anotherCalc = readline.question().toLowerCase();
   }
 

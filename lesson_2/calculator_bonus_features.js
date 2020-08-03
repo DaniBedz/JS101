@@ -8,7 +8,7 @@ function messages(message, lang = 'en') {
 }
 
 function prompt(key) {
-  let message = messages(key, LANGUAGE);
+  let message = messages(key);
   console.log(`\n=> ${message}` + spacer);
 }
 
