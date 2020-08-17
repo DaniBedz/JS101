@@ -1,11 +1,12 @@
 {
-  "title": "Mortgage Calculator",
+  "titleMsg": "---------- Mortgage Calculator ----------",
   "loanAmountMsg": "How much would you like to borrow?:",
   "notValidMsg": "Not a valid number - please try again:",
   "aprMsg": "What is annual interest rate %? (APR):",
   "loanDurationMsg": "What is loan duration? (in years)",
-  "durationDecimal": "Not a valid number\n=> Please enter the duration in full years",
+  "durationDecimalMsg": "Not a valid number\n=> Please enter the duration in full years",
   "outputMsg": "The monthly payment is:",
   "anotherMsg": "Another calculation?:",
-  "yesOrNo": "Please enter 'y' or 'n':"
+  "yesOrNoMsg": "Please enter 'y' or 'n':",
+  "invalidAgainMsg": "Please only enter 'y' or 'n'"
 }

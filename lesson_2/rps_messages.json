@@ -1,0 +1,10 @@
+{
+  "title": "Rock, Paper, Scissors",
+  "chooseMsg": "Choose one: Rock, Paper, Scissors",
+  "notValidMsg": "Not a valid choice - please try again:",
+  "playAgainMsg" : "Would you like to play again? (y/n)",
+  "yesOrNoMsg": "Please enter 'y' or 'n':",
+  "winMsg": "You win!",
+  "loseMsg": "You lose!",
+  "drawMsg": "It's a draw!"
+}
