@@ -1,13 +1,30 @@
 const readline = require('readline-sync');
 const MESSAGES = require('./mortgage_messages.json');
+const VALID_ANSWERS = ['y', 'yes', 'n', 'no'];
 
-// Creates custom prompt with formatting
 function prompt(message) {
-  console.log(`\n=> ${MESSAGES[message]}\n------------------------------------------`);
+  console.log(`\n=> ${MESSAGES[message]}\n----------------------------------------------------`);
 }
 
-// Checks if a number is empty, negative, not a number or zero
-// (zero allowed for APR)
+function retrieveInput(inputMsg, input) {
+  prompt(inputMsg);
+  input = readline.question();
+  if (inputMsg === 'loanDurationMsg') {
+    while (isInvalidNumber(input, inputMsg) || input.includes('.')) {
+      prompt('durationDecimalMsg');
+      prompt(inputMsg);
+      input = readline.question();
+    }
+  } else {
+    while (isInvalidNumber(input, inputMsg)) {
+      prompt('notValidMsg');
+      prompt(inputMsg);
+      input = readline.question();
+    }
+  }
+  return input;
+}
+
 function isInvalidNumber(number, inputMsg, invalidNumber) {
   if (inputMsg === 'aprMsg') {
     if (number.trim() === '' || Number.isNaN(Number(number))) {
@@ -23,27 +40,6 @@ function isInvalidNumber(number, inputMsg, invalidNumber) {
   return invalidNumber;
 }
 
-// Gets user input, validates and checks for decimal if loanDuration
-function retrieveInput(inputMsg, input) {
-  prompt(inputMsg);
-  input = readline.question();
-  if (inputMsg === 'loanDurationMsg') {
-    while (isInvalidNumber(input, inputMsg) === true || input.includes('.')) {
-      prompt('durationDecimalMsg');
-      prompt(inputMsg);
-      input = readline.question();
-    }
-  } else {
-    while (isInvalidNumber(input, inputMsg) === true) {
-      prompt('notValidMsg');
-      prompt(inputMsg);
-      input = readline.question();
-    }
-  }
-  return input;
-}
-
-// Main calculation function
 function calcMonthlyPayment(
   loanAmount, monthlyInterestRate, loanDurationMonths, monthlyPayment) {
   monthlyPayment = Number(loanAmount) *
@@ -56,21 +52,14 @@ function calcMonthlyPayment(
   return monthlyPayment;
 }
 
-// Checks if user wants to perform another calculation and exits if !== 'y'
-function isAgain(running) {
+function isAgain() {
   prompt('anotherMsg');
   let again = readline.question();
-  while ((again.toLowerCase() !== 'y' && again.toLowerCase() !== 'yes')  &&
-     (again.toLowerCase() !== 'n' && again.toLowerCase() !== 'no')) {
+  while (!VALID_ANSWERS.includes(again)) {
     prompt('invalidAgainMsg');
     again = readline.question();
   }
-  if (again[0].toLowerCase() === 'y') {
-    running = true;
-  } else {
-    running = false;
-  }
-  return running;
+  return again[0].toLowerCase() === "y";
 }
 
 // Main program loop
