@@ -1,55 +1,82 @@
 const MESSAGES = require('./calculator_messages.json');
 const readline = require('readline-sync');
-const LANGUAGE = 'en';
-const SPACER = "\n--------------------------------------------";
+const SPACER = "\n---------------------------------------------------------";
+const LANGUAGES =
+['en', 'de', 'fr', 'es', 'pt', 'it', 'nl', 'pl', 'ru', 'jp', 'cn'];
 const POSSIBLE_OPERATORS = ['1', '2', '3', '4'];
+const VALID_ANSWERS = ['y', 'yes', 'n', 'no'];
+let language = 'en';
+let running = true;
 
-// Formats prompt/user input
 function prompt(key) {
   let message = messages(key);
   console.log(`\n=> ${message}` + SPACER);
 }
 
-// Multi-Language support
 function messages(message) {
-  return MESSAGES[LANGUAGE][message];
+  return MESSAGES[language][message];
 }
 
-// Checks for valid number/blank input
+function selectLanguage(LANGUAGES, language) {
+  prompt('languageMsg');
+  language = readline.question();
+  language = languageExpander(language);
+  while (!LANGUAGES.includes(language)) {
+    prompt('invalidLanguageMsg');
+    prompt('languageMsg');
+    language = readline.question();
+    language = languageExpander(language);
+  }
+  return language;
+}
+
+// eslint-disable-next-line max-lines-per-function
+function languageExpander(language) {
+  switch (language) {
+    case '1': language = 'en';
+      break;
+    case '2': language = 'de';
+      break;
+    case '3': language = 'fr';
+      break;
+    case '4': language = 'es';
+      break;
+    case '5': language = 'pt';
+      break;
+    case '6': language = 'it';
+      break;
+    case '7': language = 'nl';
+      break;
+    case '8': language = 'pl';
+      break;
+    case '9': language = 'ru';
+      break;
+    case '10': language = 'jp';
+      break;
+    case '11': language = 'cn';
+      break;
+  }
+  return language;
+}
+
 function isInvalidInput(input) {
-  if (input.trimStart() === '' || Number.isNaN(Number(input))) {
-    return true;
-  } else {
-    return false;
-  }
+  return input.trimStart() === '' || Number.isNaN(Number(input));
 }
 
-// Checks for valid operator
-function isInvalidOperation(input) {
-  if (POSSIBLE_OPERATORS.includes(input) === false) {
-    return true;
-  } else {
-    return false;
-  }
+function isInvalidOperation(input, POSSIBLE_OPERATORS) {
+  return !POSSIBLE_OPERATORS.includes(input);
 }
 
-// Gets user input, checks for validity and returns clean input
 function retrieveInput(inputMsg) {
   prompt(inputMsg);
-  let dirtyInput = readline.question();
-  let input = validateInput(inputMsg, dirtyInput);
-  return input;
-}
-
-// Validates user input (including operation)
-function validateInput(inputMsg, input) {
-  if (inputMsg === 'operationMsg' ) {
+  let input = readline.question();
+  if (inputMsg === 'operationMsg') {
     while (isInvalidOperation(input, POSSIBLE_OPERATORS) === true) {
       prompt('opInvalidMsg');
       input = readline.question();
     }
   } else {
-    while (isInvalidInput(input) === true) {
+    while (isInvalidInput(input)) {
       prompt('invalidMsg');
       input = readline.question();
     }
@@ -57,24 +84,6 @@ function validateInput(inputMsg, input) {
   return input;
 }
 
-// Continues/stops main program
-function isAgain(running) {
-  prompt('againMsg');
-  let again = readline.question();
-  while ((again.toLowerCase() !== 'y' && again.toLowerCase() !== 'yes')  &&
-     (again.toLowerCase() !== 'n' && again.toLowerCase() !== 'no')) {
-    prompt('invalidAgainMsg');
-    again = readline.question();
-  }
-  if (again[0].toLowerCase() === 'y') {
-    running = true;
-  } else {
-    running = false;
-  }
-  return running;
-}
-
-// Checks if a user is trying to divide by 0 and prompts for user input if so
 function divideByZeroCheck(operation, number2) {
   if (number2 === '0' || number2 === '-0') {
     while (operation === '4') {
@@ -85,7 +94,16 @@ function divideByZeroCheck(operation, number2) {
   return operation;
 }
 
-// Main calculator function
+function isAgain() {
+  prompt('againMsg');
+  let again = readline.question();
+  while (!VALID_ANSWERS.includes(again)) {
+    prompt('invalidAgainMsg');
+    again = readline.question();
+  }
+  return again[0].toLowerCase() === "y";
+}
+
 function calculateOutput(
   operation, number1, number2) {
   operation = divideByZeroCheck(operation, number2);
@@ -107,12 +125,11 @@ function calculateOutput(
   return output;
 }
 
-// Main program loop
-let running = true;
-
 while (running) {
   console.clear();
-  console.log(messages('headerMsg', LANGUAGE));
+
+  language = selectLanguage(LANGUAGES, language);
+  console.log(messages('headerMsg', language));
 
   let number1 = retrieveInput('firstMsg');
   let number2 = retrieveInput('secondMsg');

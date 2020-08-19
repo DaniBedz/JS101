@@ -1,6 +1,8 @@
 {
   "en": {
-    "headerMsg": "\n---------------- Calculator ----------------",
+    "languageMsg": "Select a language:\n  1). English\n  2). Deutsch\n  3). Français\n  4). Español\n  5). Português\n  6). Italiano\n  7). Nederlands\n  8). Polski\n  9). Русский язык\n  10). 日本語\n  11). 中文(简体)",
+    "invalidLanguageMsg": "Invalid language selection",
+    "headerMsg": "\n---------------------- Calculator -----------------------",
     "firstMsg": "First number:",
     "secondMsg": "Second number:",
     "invalidMsg": "Number not valid - please try again.",
@@ -12,11 +14,11 @@
     "divideByZeroMsg": "You cannot divide by 0"
   },
   "de": {
-    "headerMsg": "\n----------------- Rechner ------------------",
+    "headerMsg": "\n----------------------- Rechner -------------------------",
     "firstMsg": "Erste zahl:",
     "secondMsg": "Zweite zahl:",
     "invalidMsg": "Nummer nicht gültig - bitte versuchen Sie es erneut.",
-    "operationMsg": "Nummer nicht gültig - bitte versuchen Sie es erneut:\n  1). Hinzufügen\n 2). Subtrahieren\n 3). Multiplizieren\n 4). Dividieren\n",
+    "operationMsg": "Nummer nicht gültig - bitte versuchen Sie es erneut:\n  1). Hinzufügen\n  2). Subtrahieren\n  3). Multiplizieren\n  4). Dividieren\n",
     "opInvalidMsg": "Operation nicht gültig - Geben Sie 1, 2, 3 oder 4 ein:",
     "againMsg": "Eine weitere Operation durchführen? (y/n)",
     "answerMsg": "Die Ausgabe ist:",
@@ -24,11 +26,11 @@
     "divideByZeroMsg": "Sie können nicht durch 0 dividieren."
   },
   "fr": {
-    "headerMsg": "\n---------------- Calculateur ---------------",
+    "headerMsg": "\n---------------------- Calculateur ----------------------",
     "firstMsg": "Premier numéro:",
     "secondMsg": "Deuxième numéro:",
     "invalidMsg": "Numéro non valide - veuillez réessayer.",
-    "operationMsg": "Numéro non valide - veuillez réessayer. Opération:\n  1). Ajouter\n 2). Soustraire\n 3). Multipliez par\n 4). Diviser\n",
+    "operationMsg": "Numéro non valide - veuillez réessayer. Opération:\n  1). Ajouter\n  2). Soustraire\n  3). Multipliez par\n  4). Diviser\n",
     "opInvalidMsg": "Opération non valable - Entrez 1, 2, 3 ou 4",
     "againMsg": "Effectuer une autre opération? (y/n)",
     "answerMsg": "Le résultat est:",
@@ -36,11 +38,11 @@
     "divideByZeroMsg": "Vous ne pouvez pas diviser par 0"
   },
   "es": {
-    "headerMsg": "\n---------------- Calculadora ---------------",
+    "headerMsg": "\n---------------------- Calculadora ----------------------",
     "firstMsg": "Primer número:",
     "secondMsg": "Segundo número:",
     "invalidMsg": "El número no es válido. Por favor, inténtelo de nuevo.",
-    "operationMsg": "Operación:\n  1). Añade\n 2). Restar\n 3). Multiplicar\n 4). Dividir\n",
+    "operationMsg": "Operación:\n  1). Añade\n  2). Restar\n  3). Multiplicar\n  4). Dividir\n",
     "opInvalidMsg": "Operación no válida - Introduzca 1, 2, 3 o 4:",
     "againMsg": "¿Realizar otra operación? (y/n)",
     "answerMsg": "La salida es:",
@@ -49,11 +51,11 @@
   },
   
   "pt": {
-    "headerMsg": "\n---------------- Calculadora ---------------",
+    "headerMsg": "\n---------------------- Calculadora ----------------------",
     "firstMsg": "Primeiro número:",
     "secondMsg": "Segundo número:",
     "invalidMsg": "Número não válido - por favor tente novamente.",
-    "operationMsg": "Número não válido - por favor tente novamente. Operação:\n  1). Adicionar\n 2). Subtrair\n 3). Multiplicar\n 4). Dividir\n",
+    "operationMsg": "Número não válido - por favor tente novamente. Operação:\n  1). Adicionar\n  2). Subtrair\n  3). Multiplicar\n  4). Dividir\n",
     "opInvalidMsg": "Operação não válida - Inserir 1, 2, 3 ou 4:",
     "againMsg": "Realizar outra operação? (y/n)",
     "answerMsg": "A produção é:",
@@ -61,11 +63,11 @@
     "divideByZeroMsg": "Não se pode dividir por 0"
   },
   "it": {
-    "headerMsg": "\n--------------- Calcolatrice ---------------",
+    "headerMsg": "\n--------------------- Calcolatrice ----------------------",
     "firstMsg": "Primo numero:",
     "secondMsg": "Secondo numero:",
     "invalidMsg": "Numero non valido - si prega di riprovare.",
-    "operationMsg": "Numero non valido - si prega di riprovare. Operazione:\n  1). Aggiungere\n 2). Sottrarre\n 3). Moltiplicare\n 4). Dividere\n",
+    "operationMsg": "Numero non valido - si prega di riprovare. Operazione:\n  1). Aggiungere\n  2). Sottrarre\n  3). Moltiplicare\n  4). Dividere\n",
     "opInvalidMsg": "Operazione non valida - Inserire 1, 2, 3 o 4:",
     "againMsg": "Eseguire un'altra operazione? (y/n)",
     "answerMsg": "L'uscita è:",
@@ -73,11 +75,11 @@
     "divideByZeroMsg": "Non si può dividere per 0"
   },
   "nl": {
-    "headerMsg": "\n--------------- Rekenmachine ---------------",
+    "headerMsg": "\n--------------------- Rekenmachine ----------------------",
     "firstMsg": "Eerste nummer:",
     "secondMsg": "Tweede nummer:",
     "invalidMsg": "Nummer niet geldig. Probeer het nog eens.",
-    "operationMsg": "Nummer niet geldig. Probeer het nog eens. Bediening:\n  1). Voeg\n 2) Aftrekken\n 3) Vermenigvuldig\n 4). Verdeel\n",
+    "operationMsg": "Nummer niet geldig. Probeer het nog eens. Bediening:\n  1). Voeg\n  2). Aftrekken\n  3). Vermenigvuldig\n  4). Verdeel\n",
     "opInvalidMsg": "Werking niet geldig - Voer 1, 2, 3 of 4 in:",
     "againMsg": "Een andere operatie uitvoeren? (y/n)",
     "answerMsg": "De uitgang is:",
@@ -85,11 +87,11 @@
     "divideByZeroMsg": "Je kunt niet delen door 0"
   },
   "pl": {
-    "headerMsg": "\n---------------- Kalkulator ----------------",
+    "headerMsg": "\n---------------------- Kalkulator -----------------------",
     "firstMsg": "Pierwsza liczba:",
     "secondMsg": "Druga liczba:",
     "invalidMsg": "Numer nieważny - proszę spróbować ponownie.",
-    "operationMsg": "Numer nieważny - proszę spróbować ponownie. Operacja:\n  1). Dodaj\n 2). Odejmij\n 3). Pomnożyć\n 4). Podzielić\n",
+    "operationMsg": "Numer nieważny - proszę spróbować ponownie. Operacja:\n  1). Dodaj\n  2). Odejmij\n  3). Pomnożyć\n  4). Podzielić\n",
     "opInvalidMsg": "Operacja nieważna - Wprowadź 1, 2, 3 lub 4:",
     "againMsg": "Przeprowadzić kolejną operację? (y/n)",
     "answerMsg": "Wyjście jest:",
@@ -97,11 +99,11 @@
     "divideByZeroMsg": "Nie możesz podzielić przez 0"
   },
   "ru": {
-    "headerMsg": "\n---------------- Калькулятор ---------------",
+    "headerMsg": "\n---------------------- Калькулятор ----------------------",
     "firstMsg": "Первое число:",
     "secondMsg": "Второе число:",
     "invalidMsg": "Номер недействителен - пожалуйста, попробуйте еще раз.",
-    "operationMsg": "Номер недействителен - пожалуйста, попробуйте еще раз. Эксплуатация:\n  1). Добавить\n 2). Вычитать\n 3). Умножить на\n 4). Разделите\n",
+    "operationMsg": "Номер недействителен - пожалуйста, попробуйте еще раз. Эксплуатация:\n  1). Добавить\n  2). Вычитать\n  3). Умножить на\n  4). Разделите\n",
     "opInvalidMsg": "Эксплуатация недействительна - Введите 1, 2, 3 или 4:",
     "againMsg": "Выполнить еще одну операцию? (y/n)",
     "answerMsg": "Выход:",
@@ -109,11 +111,11 @@
     "divideByZeroMsg": "Вы не можете поделить на 0"
   },
   "jp": {
-    "headerMsg": "\n-------------------- 計算機 -------------------",
+    "headerMsg": "\n-------------------------- 計算機 --------------------------",
     "firstMsg": "最初の番号:",
     "secondMsg": "2番目の番号:",
     "invalidMsg": "有効な番号ではありません - もう一度お試しください。",
-    "operationMsg": "番号が有効ではありません - もう一度お試しください。操作方法\n  1). 加算\n 2）.) 減算\n 3）。) 乗算\n 4）。) 割り算\n",
+    "operationMsg": "番号が有効ではありません - もう一度お試しください。操作方法\n  1). 加算\n  2）.) 減算\n  3）。) 乗算\n  4）。) 割り算\n",
     "opInvalidMsg": "操作が無効 - 1、2、3、または 4 を入力してください。",
     "againMsg": "別の操作を行うか？ (y/n)",
     "answerMsg": "出力されます。",
@@ -121,11 +123,11 @@
     "divideByZeroMsg": "0で割ることはできません。"
   },
   "cn": {
-    "headerMsg": "\n-------------------- 计算器 -------------------",
+    "headerMsg": "\n-------------------------- 计算器 --------------------------",
     "firstMsg": "第一个号码:",
     "secondMsg": "第二个号码:",
     "invalidMsg": "号码无效--请重试。",
-    "operationMsg": "号码无效--请重试。操作。\n 1). 加\n 2). 减法\n 3). 乘法\n 4). 除法\n",
+    "operationMsg": "号码无效--请重试。操作。\n  1). 加\n  2). 减法\n  3). 乘法\n  4). 除法\n",
     "opInvalidMsg": "操作无效 - 输入 1、2、3 或 4。",
     "againMsg": "再做一次手术？ (y/n)",
     "answerMsg": "产出是：",
