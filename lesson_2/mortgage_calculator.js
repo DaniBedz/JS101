@@ -6,38 +6,31 @@ function prompt(message) {
   console.log(`\n=> ${MESSAGES[message]}\n----------------------------------------------------`);
 }
 
-function retrieveInput(inputMsg, input) {
+function retrieveInput(inputMsg, isInvalidNumber) {
   prompt(inputMsg);
-  input = readline.question();
-  if (inputMsg === 'loanDurationMsg') {
-    while (isInvalidNumber(input, inputMsg) || input.includes('.')) {
-      prompt('durationDecimalMsg');
-      prompt(inputMsg);
-      input = readline.question();
-    }
-  } else {
-    while (isInvalidNumber(input, inputMsg)) {
-      prompt('notValidMsg');
-      prompt(inputMsg);
-      input = readline.question();
-    }
+  let input = readline.question();
+  while (isInvalidNumber(input, inputMsg)) {
+    prompt('notValidMsg');
+    input = readline.question();
   }
   return input;
 }
 
-function isInvalidNumber(number, inputMsg, invalidNumber) {
+function isInvalidNumber(number, inputMsg) {
   if (inputMsg === 'aprMsg') {
-    if (number.trim() === '' || Number.isNaN(Number(number))) {
-      invalidNumber = true;
+    if (number.trim() === '' || Number.isNaN(Number(number)) || number < 0 ) {
+      return true;
     }
-  } else if (number.trim() === '' ||
-             Number(number) <= 0 ||
-             Number.isNaN(Number(number))) {
-    invalidNumber = true;
-  } else {
-    invalidNumber = false;
+  } else if (inputMsg === 'loanDurationMsg') {
+    if (number.trim() === '' || Number.isNaN(Number(number)) ||
+        number <= 0 || number.includes('.')) {
+      return true;
+    }
+  } else if (number.trim() === '' || Number(number) <= 0 ||
+               Number.isNaN(Number(number))) {
+    return true;
   }
-  return invalidNumber;
+  return false;
 }
 
 function calcMonthlyPayment(
@@ -68,10 +61,10 @@ while (running) {
   console.clear();
   console.log(MESSAGES['titleMsg']);
 
-  let loanAmount = retrieveInput('loanAmountMsg');
-  let annualInterestRate = retrieveInput('aprMsg');
+  let loanAmount = retrieveInput('loanAmountMsg', isInvalidNumber);
+  let annualInterestRate = retrieveInput('aprMsg', isInvalidNumber);
   let monthlyInterestRate = (Number(annualInterestRate) / 100) / 12;
-  let loanDurationYears = retrieveInput('loanDurationMsg');
+  let loanDurationYears = retrieveInput('loanDurationMsg', isInvalidNumber);
   let loanDurationMonths = loanDurationYears * 12;
   let monthlyPayment = calcMonthlyPayment(
     loanAmount, monthlyInterestRate, loanDurationMonths);
