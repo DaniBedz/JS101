@@ -1,10 +1,23 @@
 const MESSAGES = require('./calculator_messages.json');
 const readline = require('readline-sync');
 const SPACER = "\n---------------------------------------------------------";
-const LANGUAGES =
-['en', 'de', 'fr', 'es', 'pt', 'it', 'nl', 'pl', 'ru', 'jp', 'cn'];
+const LANGUAGE_EXPANDED = {
+  1: 'en',
+  2: 'de',
+  3: 'fr',
+  4: 'es',
+  5: 'pt',
+  6: 'it',
+  7: 'nl',
+  8: 'pl',
+  9: 'ru',
+  10:'jp',
+  11: 'cn'
+};
 const POSSIBLE_OPERATORS = ['1', '2', '3', '4'];
 const VALID_ANSWERS = ['y', 'yes', 'n', 'no'];
+
+
 let language = 'en';
 let running = true;
 
@@ -17,45 +30,15 @@ function messages(message) {
   return MESSAGES[language][message];
 }
 
-function selectLanguage(LANGUAGES, language) {
+function selectLanguage(LANGUAGE_EXPANDED, language) {
   prompt('languageMsg');
   language = readline.question();
-  language = languageExpander(language);
-  while (!LANGUAGES.includes(language)) {
+  while (!LANGUAGE_EXPANDED.hasOwnProperty(language)) {
     prompt('invalidLanguageMsg');
     prompt('languageMsg');
     language = readline.question();
-    language = languageExpander(language);
   }
-  return language;
-}
-
-// eslint-disable-next-line max-lines-per-function
-function languageExpander(language) {
-  switch (language) {
-    case '1': language = 'en';
-      break;
-    case '2': language = 'de';
-      break;
-    case '3': language = 'fr';
-      break;
-    case '4': language = 'es';
-      break;
-    case '5': language = 'pt';
-      break;
-    case '6': language = 'it';
-      break;
-    case '7': language = 'nl';
-      break;
-    case '8': language = 'pl';
-      break;
-    case '9': language = 'ru';
-      break;
-    case '10': language = 'jp';
-      break;
-    case '11': language = 'cn';
-      break;
-  }
+  language = LANGUAGE_EXPANDED[language];
   return language;
 }
 
@@ -128,7 +111,7 @@ function calculateOutput(
 while (running) {
   console.clear();
 
-  language = selectLanguage(LANGUAGES, language);
+  language = selectLanguage(LANGUAGE_EXPANDED, language);
   console.log(messages('headerMsg', language));
 
   let number1 = retrieveInput('firstMsg');
