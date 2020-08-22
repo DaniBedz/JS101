@@ -1,17 +1,18 @@
 {
-  "titleMsg": "-------- Rock, Paper, Scissors, Lizard, Spock --------\n",
-  "gameModeMsg": "Select Game Mode:\n  1. Single Game (First to 1 win)\n  2. Tournament Mode (First to ",
+  "titleMsg": "Rock, Paper, Scissors, Lizard, Spock",
+  "spacerMsg": "-------------------------------------\n",
+  "gameModeMsg": "Select Game Mode:\n\n  1. Single Game (First to 1 win)\n  2. Tournament Mode (First to ",
   "invalidGameModeMsg": "Invalid Input - Please enter 1 or 2:\n",
-  "chooseMsg": "Choose one: (r)ock, (p)aper, (sc)issors, (l)izard, (sp)ock:\n",
-  "notValidMsg": "Not a valid choice - please try again:",
+  "chooseMsg": "Choose one:\n\n  (r)ock\n  (p)aper\n  (sc)issors\n  (l)izard\n  (sp)ock\n",
+  "notValidMsg": "Not a valid choice - please try again:\n",
   "nextRoundMsg": "Press enter to play the next round, or 'q' to quit\n",
-  "playAgainMsg" : "Would you like to play another match? (y/n):\n",
+  "playAgainMsg": "Would you like to play another match? (y/n):\n",
   "invalidAgainMsg": "Invalid input - Please enter 'y' or 'n':\n",
   "winMsg": "=> You win!\n",
   "loseMsg": "=> You lose!\n",
   "drawMsg": "=> It's a draw!\n",
   "playerMsg": "Player: ",
   "cpuMsg": "Computer: ",
-  "championMsg": "You are the overall winner of the tournament!\n",
-  "betterLuckMsg": "You lost the tournament to the computer - better luck next time!\n"
+  "winTournamentMsg": "You are the overall winner of the tournament.\n",
+  "loseTournamentMsg": "You lost the overall tournament to the computer.\n"
 }
