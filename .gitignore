@@ -1,5 +1,5 @@
 .DS_Store
 .vscode/launch.json
 lesson_2/.DS_Store
-lesson_2/.vscode/launch.json
-lesson_2/.vscode/js101.code-workspace
+lesson_2/.vscode/
+lesson_2/node_modules
