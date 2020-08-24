@@ -28,15 +28,14 @@ let munstersDescription = "The Munsters are creepy and spooky.";
 
 munstersDescription.split('').map(function char() {
   if (char === char.toUpperCase()) {
-    return char.toUpperCase();
-  } else {
     return char.toLowerCase();
+  } else {
+    return char.toUpperCase();
   }
 }).join('');
 
 
 // Question 3
-
 // Alan wrote the following function, which was intended to return all of the factors of number:
 
 // Answer
@@ -60,7 +59,7 @@ function factors(number) {
 // Question 4
 // Alyssa was asked to write an implementation of a rolling buffer.
 // You can add and remove elements from a rolling buffer. However,
-//once the buffer becomes full, any new elements will displace the
+// once the buffer becomes full, any new elements will displace the
 // oldest elements in the buffer.
 
 // She wrote two implementations of the code for adding elements to the buffer.
@@ -112,6 +111,7 @@ console.log(nanArray[0] === NaN); // false
 
 // Answer
 
+// false
 // NaN cannot be used with a comparator.
 
 
