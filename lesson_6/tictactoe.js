@@ -105,7 +105,8 @@ const playerChoosesSquare = board => {
 
   while (true) {
     if (boardFull(board) || someoneWon(board)) break;
-    square = readline.question(prompt(`Choose a square (${joinOr(emptySquares(board))}):`)).trim();
+    square = readline.question(prompt(
+      `Choose a square (${joinOr(emptySquares(board))}):`)).trim();
     if (emptySquares(board).includes(square)) break;
     prompt(`Sorry, that's not a valid choice.`);
   }
