@@ -5,6 +5,7 @@ const VALUES =
 const PICTURE_CARDS = ['A', 'K', 'Q', 'J'];
 const BLACKJACK = 21;
 const DEALER_LIMIT = 17;
+const VALID_CHOICES = ['h', 'hit', 's', 'stick'];
 
 const shuffle = deck => {
   for (let first = deck.length - 1; first > 0; first--) {
@@ -98,25 +99,24 @@ const drawScreen = (
 };
 
 const takeTurn = (choice, playerCards, deck) => {
-  if (choice === 'h') {
+  if (choice === 'h' || choice === 'hit') {
     playerCards.push(deck.shift());
   }
   return playerCards;
 };
 
-const isStick = choice => choice === 's';
-
+const isStick = choice => choice === 's' || choice === 'stick';
 const isBlackJack = playerValueTotal => playerValueTotal === BLACKJACK;
 
 const getPlayerMove = (
   playerCards, dealerCards, playerValueTotal, dealerValueTotal) => {
-  let choice = readline.question(`      [H]it Me    [S]tick\n\n`).toLowerCase();
-  while (choice !== 'h' && choice !== 's') {
+  let choice = readline.question(`  [H]it    [S]tick\n\n`).toLowerCase();
+  while (!VALID_CHOICES.includes(choice)) {
     console.clear();
     drawScreen(
       playerCards, dealerCards, playerValueTotal, dealerValueTotal);
     console.log(`That is not a valid choice - please enter 'h' or 's':\n`);
-    choice = readline.question(`      [H]it Me    [S]tick\n\n`);
+    choice = readline.question(`  [H]it    [S]tick\n\n`).toLowerCase();
   }
   return choice;
 };
