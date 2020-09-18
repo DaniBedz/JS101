@@ -10,21 +10,19 @@ const WINNING_LINES = [
   [1, 5, 9], [3, 5, 7]             // diagonals
 ];
 const VALID_CHOICES = ['y', 'yes', 'n', 'no'];
-const WHO_GOES_FIRST = 'choose';
 
 const prompt = message => console.log(`=> ` + message);
 
 const chooseWhoGoesFirst = currentPlayer =>  {
-  if (WHO_GOES_FIRST === 'choose') {
-    console.log(TITLE.padStart((25) + (TITLE.length / 2)) + `\n`);
-    let choice = readline.question(`=> Who should go first?:\n  1. Player\n  2. Computer\n`);
-    while (choice !== '1' && choice !== '2') {
-      prompt(`That's not a valid choice.`);
-      choice = readline.question(`=> Who should go first?:\n  1. Player\n  2. Computer\n`);
-    }
-    choice = choice === '1' ?
-      currentPlayer = 'player' : currentPlayer = 'cpu';
+  console.log(TITLE.padStart((25) + (TITLE.length / 2)) + `\n`);
+  let choice = readline.question(`=> Who should go first? Please enter 1, or 2:\n  (1) Player\n  (2) Computer\n`);
+  while (choice !== '1' && choice !== '2') {
+    prompt(`That's not a valid choice.`);
+    choice = readline.question(`=> Who should go first?:\n  (1) Player\n  (2) Computer\n`);
   }
+  choice = choice === '1' ?
+    currentPlayer = 'player' : currentPlayer = 'cpu';
+
   return currentPlayer;
 };
 
@@ -66,20 +64,13 @@ const emptySquares = board => Object.keys(board)
 const boardFull = board => emptySquares(board).length === 0;
 
 const detectWinner = board => {
-  for (let line = 0; line < WINNING_LINES.length; line++) {
-    let [sq1, sq2, sq3] = WINNING_LINES[line];
-    if (
-      board[sq1] === PLAYER_MARKER &&
-      board[sq2] === PLAYER_MARKER &&
-      board[sq3] === PLAYER_MARKER
-    ) {
-      return `Player`;
-    } else if (
-      board[sq1] === CPU_MARKER &&
-      board[sq2] === CPU_MARKER &&
-      board[sq3] === CPU_MARKER
-    ) {
-      return `Computer`;
+  for (let index = 0; index < WINNING_LINES.length; index++) {
+    if (WINNING_LINES[index]
+      .every(element => board[element] === PLAYER_MARKER)) {
+      return 'Player';
+    } else if (WINNING_LINES[index]
+      .every(element => board[element] === CPU_MARKER)) {
+      return 'Computer';
     }
   }
   return null;
@@ -201,6 +192,7 @@ const displayChampion = score => {
       prompt(`You lost the overall game to the computer!`);
   }
 };
+const isPlayAgain = playAgain => playAgain === 'y' || playAgain === 'yes';
 
 const playAnotherMatch = (score, playingMatch, playingGame) => {
   if (isMatchOver(score) || playingGame === false) {
@@ -210,7 +202,7 @@ const playAnotherMatch = (score, playingMatch, playingGame) => {
       prompt(`That is not a valid choice. Please enter (y/n).`);
       playAgain = readline.question(prompt(`Would you like to play another match? (y/n):`)).toLowerCase();
     }
-    playingMatch = !(playAgain === 'n' || playAgain === 'no');
+    playingMatch = isPlayAgain(playAgain);
   }
   return playingMatch;
 };
