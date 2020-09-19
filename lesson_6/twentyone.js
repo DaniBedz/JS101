@@ -199,13 +199,13 @@ while (programRunning) {
 
   //+ Computer Turn Loop
   if (playerBust === false) {
-    readline.question(`Press Enter to reveal the dealer's card.`);
+    readline.question(`Press Enter to reveal the dealer's card.\n`);
     dealerCards[1] = deck.shift();
     dealerValueTotal = calculateTotalValue(dealerCards);
     drawScreen(
       playerCards, dealerCards, playerValueTotal, dealerValueTotal);
     while (dealerBust === false && dealerValueTotal < DEALER_LIMIT) {
-      readline.question(`Press Enter to draw the dealer's card.`);
+      readline.question(`Press Enter to draw the dealer's card.\n`);
       dealerCards.push(deck.shift());
       dealerValueTotal = calculateTotalValue(dealerCards);
       drawScreen(
