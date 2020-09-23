@@ -6,6 +6,36 @@ const PICTURE_CARDS = ['A', 'K', 'Q', 'J'];
 const BLACKJACK = 21;
 const DEALER_LIMIT = 17;
 const VALID_CHOICES = ['h', 'hit', 's', 'stick'];
+const roundsWon = {
+  player: 0,
+  cpu: 0
+};
+
+const displayHeader = () => {
+  console.clear();
+  let title = `  | Twenty One |  `;
+  let padding = (50 - (title.length / 2));
+  console.log(` ______________  `.padStart(padding));
+  console.log(title.padStart(padding));
+  console.log(`------------------------------------------------------------------\n`);
+};
+
+const displayIntro = () => {
+  displayHeader();
+  console.log(`How to Play\n`.padStart(38));
+  console.log(`The player and dealer are dealt two cards each, but the second`);
+  console.log(`dealer card remains hidden until the player has finished their turn.\n`);
+  console.log(`The player can either 'Hit', which deals them another card, or`);
+  console.log(`'Stick', which means they are happy with their total card value`);
+  console.log(`and are ready for the dealer to take their turn.\n`);
+  console.log(`The dealer will continue to draw cards until they have either a value`);
+  console.log(`of at least 17, or they bust (go over the value of 21).\n`);
+  console.log(`The winner is the player who gets closest to 21 without going over.\n`);
+  console.log(`Note: Aces can have a value of either 11 or 1, depending on what`);
+  console.log(`is best for the player at that point during their turn.\n\n`);
+  console.log(`Press 'h' to hit, or 's' to stick.\n\n`);
+  readline.question(`>> Press enter to Start the game. <<\n`.padStart(50));
+};
 
 const shuffle = deck => {
   for (let first = deck.length - 1; first > 0; first--) {
@@ -37,7 +67,7 @@ const useAcesWisely = (isAce, value) => {
   return value;
 };
 
-const calculateTotalValue = playerCards => {
+const totalHandValue = playerCards => {
   let value = 0;
   let isAce = 0;
   for (const card of playerCards) {
@@ -83,18 +113,25 @@ const cardImageGenerator = cards => {
   printCard(cardLine1, cardLine2, cardLine3, cardLine4);
 };
 
+const isBlackJack = playerValueTotal => playerValueTotal === BLACKJACK;
+
+const drawStick = (stick, playerValueTotal) => {
+  if (stick || isBlackJack(playerValueTotal)) {
+    console.log(`( - Stick - )`.padStart(65));
+  }
+};
+const displayRoundsWon = who => console.log(`Rounds Won: ${who}`.padStart(65));
+
 const drawScreen = (
-  playerCards, dealerCards, playerValueTotal, dealerValueTotal) => {
-  console.clear();
-  let title = `  | Twenty One |  `;
-  let padding = (50 - (title.length / 2));
-  console.log(` ______________  `.padStart(padding));
-  console.log(title.padStart(padding));
-  console.log(`------------------------------------------------------------------\n`);
+  playerCards, dealerCards, playerValueTotal, dealerValueTotal, stick) => {
+  displayHeader();
   console.log(`Player Card Value: ${playerValueTotal}`.padStart(65));
+  displayRoundsWon(roundsWon['player']);
+  drawStick(stick, playerValueTotal);
   cardImageGenerator(playerCards);
 
   console.log(`Dealer Card Value: ${dealerValueTotal}`.padStart(65));
+  displayRoundsWon(roundsWon['cpu']);
   cardImageGenerator(dealerCards);
 };
 
@@ -106,13 +143,12 @@ const takeTurn = (choice, playerCards, deck) => {
 };
 
 const isStick = choice => choice === 's' || choice === 'stick';
-const isBlackJack = playerValueTotal => playerValueTotal === BLACKJACK;
+
 
 const getPlayerMove = (
   playerCards, dealerCards, playerValueTotal, dealerValueTotal) => {
-  let choice = readline.question(`  [H]it    [S]tick\n\n`).toLowerCase();
+  let choice = readline.question(`[H]it   or  [S]tick\n\n`.padStart(42)).toLowerCase();
   while (!VALID_CHOICES.includes(choice)) {
-    console.clear();
     drawScreen(
       playerCards, dealerCards, playerValueTotal, dealerValueTotal);
     console.log(`That is not a valid choice - please enter 'h' or 's':\n`);
@@ -121,11 +157,17 @@ const getPlayerMove = (
   return choice;
 };
 
-const displayWinner = winner => {
+const displayWinner = (winner, playerBust, dealerBust) => {
   if (winner === 'player') {
-    console.log(`You win!\n\n`);
+    if (dealerBust) {
+      console.log(`The Dealer Bust.`);
+    }
+    console.log(`You win!\n`);
   } else if (winner === 'computer') {
-    console.log(`You lose!\n\n`);
+    if (playerBust) {
+      console.log(`Oh no, you bust!`);
+    }
+    console.log(`You lose.\n`);
   } else {
     console.log(`The game was a draw!\n\n`);
   }
@@ -137,34 +179,34 @@ const determineWinner = (
   if ((dealerBust || playerValueTotal > dealerValueTotal) &&
        playerValueTotal <= BLACKJACK) {
     result = 'player';
+    roundsWon.player++;
   } else if (playerValueTotal === dealerValueTotal) {
     result = 'draw';
   } else {
     result = 'computer';
+    roundsWon.cpu++;
   }
   return result;
 };
 
 const isDealerBust = dealerValueTotal => {
   if (dealerValueTotal > BLACKJACK) {
-    console.log(`The dealer bust!`);
     return true;
   } else {
     return false;
   }
 };
 
-const isPlayAgain = programRunning => {
+const isPlayAgain = () => {
   let again = readline.question(`Press Enter to play again, or 'q' to quit.\n\n`).toLowerCase();
-  if (again === 'q' || again === 'quit') {
-    programRunning = false;
-  }
-  return programRunning;
+  return (again !== 'q' && again !== 'quit');
 };
 
 
 //+ Program Loop
 let programRunning = true;
+displayIntro();
+
 while (programRunning) {
   let deck = initalizeDeck();
   let playerBust = false;
@@ -175,12 +217,13 @@ while (programRunning) {
   let dealerCards = deck.splice(0, 1);
   dealerCards[1] = [' ', ' '];
 
-  let playerValueTotal = calculateTotalValue(playerCards);
-  let dealerValueTotal = calculateTotalValue(dealerCards);
+  let playerValueTotal = totalHandValue(playerCards);
+  let dealerValueTotal = totalHandValue(dealerCards);
 
   //+ Player Turn Loop
-  while (playerBust === false && stick === false) {
-    drawScreen(playerCards, dealerCards, playerValueTotal, dealerValueTotal);
+  while (!playerBust && !stick) {
+    drawScreen(
+      playerCards, dealerCards, playerValueTotal, dealerValueTotal);
     if (isBlackJack(playerValueTotal)) {
       break;
     }
@@ -189,31 +232,33 @@ while (programRunning) {
     stick = isStick(choice);
 
     playerCards = takeTurn(choice, playerCards, deck);
-    playerValueTotal = calculateTotalValue(playerCards);
-    drawScreen(playerCards, dealerCards, playerValueTotal, dealerValueTotal);
+    playerValueTotal = totalHandValue(playerCards);
     if (playerValueTotal > BLACKJACK) {
-      console.log(`Oh no, you bust!`);
       playerBust = true;
     }
+    drawScreen(
+      playerCards, dealerCards, playerValueTotal, dealerValueTotal, stick);
   }
 
   //+ Computer Turn Loop
-  if (playerBust === false) {
+  if (!playerBust) {
     readline.question(`Press Enter to reveal the dealer's card.\n`);
     dealerCards[1] = deck.shift();
-    dealerValueTotal = calculateTotalValue(dealerCards);
+    dealerValueTotal = totalHandValue(dealerCards);
     drawScreen(
-      playerCards, dealerCards, playerValueTotal, dealerValueTotal);
-    while (dealerBust === false && dealerValueTotal < DEALER_LIMIT) {
+      playerCards, dealerCards, playerValueTotal, dealerValueTotal, stick);
+    while (!dealerBust && dealerValueTotal < DEALER_LIMIT) {
       readline.question(`Press Enter to draw the dealer's card.\n`);
       dealerCards.push(deck.shift());
-      dealerValueTotal = calculateTotalValue(dealerCards);
+      dealerValueTotal = totalHandValue(dealerCards);
       drawScreen(
-        playerCards, dealerCards, playerValueTotal, dealerValueTotal);
+        playerCards, dealerCards, playerValueTotal, dealerValueTotal, stick);
       dealerBust = isDealerBust(dealerValueTotal);
     }
   }
   let winner = determineWinner(playerValueTotal, dealerValueTotal, dealerBust);
-  displayWinner(winner);
-  programRunning = isPlayAgain(programRunning);
+  drawScreen(
+    playerCards, dealerCards, playerValueTotal, dealerValueTotal, stick);
+  displayWinner(winner, playerBust, dealerBust);
+  programRunning = isPlayAgain();
 }
