@@ -118,6 +118,8 @@ const isBlackJack = playerValueTotal => playerValueTotal === BLACKJACK;
 const drawStick = (stick, playerValueTotal) => {
   if (stick || isBlackJack(playerValueTotal)) {
     console.log(`( - Stick - )`.padStart(65));
+  } else {
+    console.log('');
   }
 };
 const displayRoundsWon = who => console.log(`Rounds Won: ${who}`.padStart(65));
